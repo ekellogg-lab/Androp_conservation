@@ -1,0 +1,28 @@
+#load BIEN package
+library(BIEN)
+library(sp)
+library(ape)
+library(maps)
+library(maptools)
+
+#search occurrences for specified genera
+BIEN_occurrence_genus("Anadelphia")
+
+#create csv file with latitude, longitude, and taxa
+write.csv(Anadelphia_BIEN, file = "Anadelphia_BIEN.csv")
+
+#load ConR package
+library(ConR)
+
+#read occurrence data csv
+anadelphia_csv <- read.csv("Anadelphia_BIEN.csv")
+
+#optional - start with EOO computing
+EOO.results <- EOO.computing(anadelphia_csv)
+
+#run IUCN evaluation
+IUCN.eval(anadelphia_csv, DrawMap = TRUE, add.legend = TRUE, collection.info = TRUE)
+
+#results and maps will automatically appear in designated directory
+
+#vignette for ConR can be found here: https://mran.microsoft.com/snapshot/2018-12-04/web/packages/ConR/vignettes/my-vignette.html 
